@@ -47,7 +47,7 @@ section {
 	display: flex;
 	align-items: center;
 	/* background-color: #ffda27; */
-	background-image: linear-gradient( -45deg, #0927d8 0%, #04befe 100%);
+	background-image:linear-gradient(0deg, rgb(2, 3, 129) 25%, rgb(40, 116, 252) 100%);
 	position: sticky;
 	
 }
@@ -110,16 +110,10 @@ nav ul li a:hover {
 	border-bottom: 2px solid #5995fd;
 }
 
-div.aboutz {
-    width: 50%;
-    margin: auto;
-    text-align: center;
-    transform: translateY(25vh);
-}
 
 .row {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	margin: 25px 0;
 }
