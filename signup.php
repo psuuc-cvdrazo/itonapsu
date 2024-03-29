@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $studentid = mysqli_real_escape_string($conn, $_POST['studentid']);
         $pwd = mysqli_real_escape_string($conn, $_POST['password']);
 
-        $sql = "SELECT id FROM user WHERE Studentid = '$studentid'  AND Password = '$pwd'";
+        $sql = "SELECT Userid FROM user WHERE Studentid = '$studentid'  AND Password = '$pwd'";
         $result = mysqli_query($conn, $sql);
         $count = mysqli_num_rows($result);
 
@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'title' => 'Welcome user',
                 'icon' => 'info',
             ];
+
         } else {
             $response = [
                 'title' => 'Invalid student ID or password',

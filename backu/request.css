@@ -7,24 +7,11 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    
-}
-body{
-  position: relative;
-  background-image: url('img/steps.png');
-  background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
-}
-
-label, b{
-  color: linear-gradient( -45deg, #4d84e2 0%, #04befe 100%);
 }
 
 body,
 input {
     font-family: "Poppins", sans-serif;
-    
 }
 label {
   font-weight: bold;
@@ -35,20 +22,6 @@ label {
 
 }
 
-#next {
-  width: 100%;
-  border: 2px solid blue; 
-}
-
-.logoz img{
-	/* -webkit-filter: hue-rotate(0deg); filter: hue-rotate(0deg);   */
-	width: 50px;
-	cursor: pointer;
-	margin: 10px 0;
-	
-	
-}
-
 .card {
     width: 900px;
     /* Set your desired width */
@@ -57,7 +30,7 @@ label {
 .input-field {
     /* max-width: 100%; */
     width: 100%;
-    background-color: #ffffff;
+    background-color: #f0f0f0;
     /* margin: 10px 0; */
     height: 55px;
     border-radius: 55px;

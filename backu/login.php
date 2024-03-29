@@ -6,36 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title> BDORS </title>
   <link rel="stylesheet" type="text/css" href="signupstyle.css" />
-  <link rel="shortcut icon" href="img/lion.gif" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<style>
-  .sign-in-form {
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 5000px rgba(0, 0, 0, 0.1);
-}
-#sign-up-btn {
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  cursor: pointer;
 
-}
-
-#sign-in-btn {
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  cursor: pointer;
-
-}
-</style>
 <body>
   <div class="container">
     <div class="forms-container">
@@ -58,10 +31,6 @@
           </div>
 
           <button class="btn solid" id="login" type="button">LOGIN</button>
-          <br><br>
-          <p>No account yet?<input style="color: #0927d8;" type="button" id="sign-up-btn" value=" Create New Account"></p>
-            
-         
 
 
         </form>
@@ -87,7 +56,7 @@
           </div>
           <div class="signup-input">
             <i class="fas fa-envelope"></i>
-            <input type="text" placeholder="Email" name="Email" id="Email">
+            <input type="email" placeholder="Email" name="Email" id="Email">
           </div>
           <div class="signup-input">
             <i class="fas fa-phone"></i>
@@ -110,9 +79,7 @@
           <script type="text/javascript">
             document.getElementById("Status").setAttribute('value', 'Active');
           </script>
-          <button class="btn solid" name="signup" id="signup" type="button">SIGN UP</button><br>
-          <p>Have an Account?<input style="color: #0927d8;" type="button" id="sign-in-btn" value=" Log In Account"></p>
-          <button class="btn transparent" id="sign-in-btn"> Sign in </button>
+          <button class="btn solid" name="signup" id="signup" type="button">SIGN UP</button>
 
 
 
@@ -124,21 +91,19 @@
       <div class="panel left-panel">
         <div class="content">
 
-          <h3> . </h3>
-          <p style="font-size: 13px;">You have reached the Official <span style="color: #ffda39;">Online Document Request<br> System </span> of the <span style="color: #ffda39;"> Pangasinan State University</span>,<br>
-          Urdaneta</p>
-
+          <h3> New here? </h3>
+          <p> Create an account and request your documents now.</p>
+          <button class="btn transparent" id="sign-up-btn"> Sign up </button><br>
         </div>
-        <img src="img/lion.gif" class="image">
+        <img src="img/log.svg" class="image">
       </div>
       <div class="panel right-panel">
         <div class="content">
-          <h3> . </h3>
-          <p style="font-size: 13px;">You have reached the Official <span style="color: #ffda39;">Online Document Request<br> System </span> of the <span style="color: #ffda39;"> Pangasinan State University</span>,<br>
-          Urdaneta</p>
-         
+          <h3> One of us? </h3>
+          <p> Login your account and request your documents now.</p>
+          <button class="btn transparent" id="sign-in-btn"> Sign in </button>
         </div>
-        <img src="img/psuzz.png" class="image">
+        <img src="img/register.svg" class="image">
       </div>
     </div>
   </div>
@@ -172,7 +137,7 @@
             });
             if (response.title == 'Welcome user') {
               setTimeout(function() {
-                window.location.href = 'userdashboard.php';
+                window.location.href = 'userportal.php';
               }, 1500);
             }
 

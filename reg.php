@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $studentid = ($_POST['Studentid']);
     $fname = ($_POST['FirstName']);
+    $mname = ($_POST['MiddleName']);
     $lname = ($_POST['LastName']);
     $email = ($_POST['Email']);
     $contact = ($_POST['Contact']);
@@ -17,21 +18,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Status = $_POST['Status'];
     $created = date('Y-m-d');
 
-    // Confirming if passwords are the same
-    if (empty($studentid) || empty($fname) || empty($lname) || empty($email) || empty($contact) || empty($address) || empty($pwd) || empty($pwd2) || empty($Status)) {
+    if (empty($studentid) || empty($fname) || empty($mname) || empty($lname) || empty($email) || empty($contact) || empty($address) || empty($pwd) || empty($pwd2) || empty($Status)) {
         $response = [
             'title'=>'Please fill in all fields',
             'icon'=>'error',
         ];
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) { 
+        $response = [
+            'title'=>'Invalid Email Address!',
+            'icon'=>'error',
+        ];
+    } elseif (!ctype_digit($contact)) { 
+        $response = [
+            'title'=>'Contact Number should contain only digits!',
+            'icon'=>'error',
+        ];
     } else {
-        // Confirm if passwords are the same
         if ($pwd != $pwd2) {
             $response = [
                 'title'=>'Passwords do not match!',
                 'icon'=>'error',
             ];
         } else {
-            // Check if student ID is already registered
             $checkStudentID = mysqli_query($conn, "SELECT * FROM user WHERE StudentID='$studentid'");
             if (mysqli_num_rows($checkStudentID) > 0) {
                 $response = [
@@ -39,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'icon'=>'error',
                 ];
             } else {
-                // Check if email is already registered
                 $checkEmail = mysqli_query($conn, "SELECT * FROM user WHERE Email='$email'");
                 if (mysqli_num_rows($checkEmail) > 0) {
                     $response = [
@@ -47,9 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         'icon'=>'error',
                     ];
                 } else {
-                    // Insert the new user if validation passes
-                    $sql = "INSERT INTO user (StudentID, FirstName, LastName, Email, Contact, Address, Password, Status, created)
-                            VALUES ('$studentid','$fname','$lname','$email','$contact','$address','$pwd','$Status','$created')";
+                    $sql = "INSERT INTO user (StudentID, FirstName, MiddleName, LastName, Email, Contact, Address, Password, Status, created)
+                            VALUES ('$studentid','$fname','$mname','$lname','$email','$contact','$address','$pwd','$Status','$created')";
         
                     if (mysqli_query($conn, $sql)) {
                         $response = [
