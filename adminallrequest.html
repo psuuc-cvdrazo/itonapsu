@@ -1,0 +1,298 @@
+<?php include('adminsession.php'); ?>
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> BDORS </title>
+  <link rel="stylesheet" href="adminpage/adminallrequest.css">
+  <script src="https://kit.fontawesome.com/b0811c54d0.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"charset="utf-8"></script>
+</head>
+
+<style>
+.content {
+	width: (100% - 300px);
+	margin-top: 60px;
+	padding: 20px;
+	margin-left: 235px;
+	background-image: linear-gradient(0deg, rgb(140, 140, 232) 30%, rgb(255, 255, 255) 100%);
+
+	height: auto;
+	transition: 0.5s;
+}
+#check:checked ~ .sidebar {
+	left: -185px;
+}
+
+#check:checked ~ .sidebar a span {
+	display: none;
+}
+
+#check:checked ~ .sidebar a {
+	font-size: 20px;
+	margin-left: 165px;
+	width: 100%;
+}
+
+label #sidebar_btn {
+	z-index: 1;
+	color: #fff;
+	position: fixed;
+	cursor: pointer;
+	left: 300px;
+	font-size: 20px;
+	margin: 5px 0;
+	transition: 0.5s;
+	transition-property: color;
+}
+</style>
+<link rel="stylesheet" href="adminpage/adminallrequestmedia.css">
+
+<body>
+	<input type="checkbox" id="check">
+  <!--header area start-->
+
+
+  <!--header area end-->
+  <header>
+  	<label for="check">
+  		<i class="fas fa-bars" id="sidebar_btn"></i>
+  	</label>
+	  <div class="row">
+		<div class="left_area">
+			<img style="height: 50px; width: 50px;" src="img/psuzz.png" alt="">
+		</div>
+		<div class="text_area">
+			<h3>PS<span>U</span></h3>
+		</div>
+	</div>
+  	<div class="right_area">
+  		<a href="adminlogout.php" class="logout_btn">  <i class="fas fa-sign-out-alt"></i> Logout</a>
+  	</div>
+  </header>
+
+  
+  
+  <!--sidebar start-->
+
+  <div class="sidebar">
+  	<div class="profile_info">
+  		<img src="img/ava.png" class="profile_image" alt="">
+      <?php  echo $login_session = $row['Username']; ?>
+  	</div>
+  	<a href="adminportal.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+  	<a href="adminallusers.php"><i class="fas fa-user"></i><span>All Users</span></a>
+  	<a href="adminallrequest.php"><i class="fas fa-folder-open"></i><span>All Requests</span></a>
+    <a href="adminsetting.php"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+	<a href="admintools.php"><i class="fas fa-wrench"></i><span>Tools</span></a>
+  </div>
+
+  <!--sidebar end-->
+
+  <div class="content">
+    <div class="welcome">
+        <p>ALL USER REQUESTS</p>
+    </div>
+    <?php include ('adminrequestpending.php');?>
+    <table class="box" border="none" cellpadding="10" cellspacing="0" align="center">
+	<thead> 
+		
+	 <td colspan="16"style="color:white; background-image: linear-gradient(0deg, rgb(2, 3, 129) 30%, rgb(40, 116, 252) 100%); font-weight: 600; font-size: 17px"> PENDING REQUEST </td>
+	</thead>
+   <tbody>
+   <tr>
+   <td><label><b>Full Name</b></label></td>
+   <td><label><b>Birthday</b></label></td>
+   <td><label><b>Age</b></label></td>
+   <td><label><b>Gender</b></label></td>
+   <td><label><b>Address</b></label></td>
+   <td><label><b>Contact</b></label></td>
+   <td><label><b>Date of Request</b></label></td>
+   <td><label><b>Purpose</b></label></td>
+   <td><label><b>Document</b></label></td>
+   <td colspan="2"><label><b>Valid IDs</b></label></td>
+   <td><label><b>Fee</b></label></td>
+   <td><label><b>Payment</b></label></td>
+   <td><label><b>Service</b></label></td>
+   <td><label><b>Status</b></label></td>
+   <td> </td>
+   </tr>
+
+  <?php while ($row=mysqli_fetch_array($result)){ ?>
+   <tr>
+  <td><?php echo $row['Fullname'];?></td>
+  <td><?php echo $row['Birthdate'];?></td>
+  <td><?php echo $row['Age'];?></td>
+  <td><?php echo $row['Gender'];?></td>
+  <td><?php echo $row['HomeAddress'];?></td>
+  <td><?php echo $row['Contact'];?></td>
+  <td><?php echo $row['DateofRequest'];?></td>
+  <td><?php echo $row['Purposes'];?></td>
+  <td><?php echo $row['Documents'];?></td>
+  <td><?php echo $row['FrontID'];?></td>
+  <td><?php echo $row['BackID'];?></td>
+  <td><?php echo $row['Fee'];?></td>
+  <td><?php echo $row['Payment'];?></td>
+  <td><?php echo $row['Service'];?></td>
+  <td><?php echo $row['Status'];?></td>
+  <td width='80px'><a class ="edit_btn" onclick="return confirm('Are you sure to approved this request?');" href="adminapprove.php?id=<?php echo $row['id'];?>"><i class="far fa-check-circle"></i></a><br><br><a class ="delete_btn" onclick="return confirm('Are you sure to denied this request?');" href="adminreject.php?id=<?php echo $row['id'];?>"><i class="far fa-times-circle"></i></a></td>
+  </tr>
+  </tbody>
+  <?php } ?>
+</table>
+
+    <?php include ('adminrequestapproved.php');?>
+    <table class="box" border="none" cellpadding="10" cellspacing="0" align="center">
+	<thead> 
+		
+	 <td colspan="16" style="color:white; background-image: linear-gradient(0deg, rgb(2, 3, 129) 30%, rgb(40, 116, 252) 100%); font-weight: 600; font-size: 17px"> APPROVED REQUEST </td>
+	</thead>
+   <tbody>
+   <tr>
+   <td><label><b>Full Name</b></label></td>
+   <td><label><b>Birthday</b></label></td>
+   <td><label><b>Age</b></label></td>
+   <td><label><b>Gender</b></label></td>
+   <td><label><b>Address</b></label></td>
+   <td><label><b>Contact</b></label></td>
+   <td><label><b>Date of Request</b></label></td>
+   <td><label><b>Purpose</b></label></td>
+   <td><label><b>Document</b></label></td>
+   <td colspan="2"><label><b>Valid IDs</b></label></td>
+   <td><label><b>Fee</b></label></td>
+   <td><label><b>Payment</b></label></td>
+   <td><label><b>Service</b></label></td>
+   <td><label><b>Status</b></label></td>
+   <td> </td>
+   </tr>
+
+  <?php while ($row=mysqli_fetch_array($result)){ ?>
+   <tr>
+  <td><?php echo $row['Fullname'];?></td>
+  <td><?php echo $row['Birthdate'];?></td>
+  <td><?php echo $row['Age'];?></td>
+  <td><?php echo $row['Gender'];?></td>
+  <td><?php echo $row['HomeAddress'];?></td>
+  <td><?php echo $row['Contact'];?></td>
+  <td><?php echo $row['DateofRequest'];?></td>
+  <td><?php echo $row['Purposes'];?></td>
+  <td><?php echo $row['Documents'];?></td>
+  <td><?php echo $row['FrontID'];?></td>
+  <td><?php echo $row['BackID'];?></td>
+  <td><?php echo $row['Fee'];?></td>
+  <td><?php echo $row['Payment'];?></td>
+  <td><?php echo $row['Service'];?></td>
+  <td><?php echo $row['Status'];?></td>
+  <td width='80px'><a class ="edit_btn" onclick="return confirm('Are you sure to done this request?');" href="admindone.php?id=<?php echo $row['id'];?>"><i class="far fa-check-circle"></i></a><br><br><a class ="edit_btn2" href="#"><i class="far fa-edit"></i></a></td>
+  </tr>
+  <?php } ?>
+  </tbody>
+</table>
+
+    <?php include ('adminrequestcompleted.php');?>
+    <table class="box" border="none" cellpadding="10" cellspacing="0" align="center">
+	<thead> 
+	 <td colspan="16" style="color:white; background-image: linear-gradient(0deg, rgb(2, 3, 129) 30%, rgb(40, 116, 252) 100%); font-weight: 600; font-size: 17px"> COMPLETED REQUEST </td>
+	</thead>
+   <tbody>
+   <tr>
+   <td><label><b>Full Name</b></label></td>
+   <td><label><b>Birthday</b></label></td>
+   <td><label><b>Age</b></label></td>
+   <td><label><b>Gender</b></label></td>
+   <td><label><b>Address</b></label></td>
+   <td><label><b>Contact</b></label></td>
+   <td><label><b>Date of Request</b></label></td>
+   <td><label><b>Purpose</b></label></td>
+   <td><label><b>Document</b></label></td>
+   <td colspan="2"><label><b>Valid IDs</b></label></td>
+   <td><label><b>Fee</b></label></td>
+   <td><label><b>Payment</b></label></td>
+   <td><label><b>Service</b></label></td>
+   <td><label><b>Status</b></label></td>
+   <td> </td>
+   </tr>
+
+  <?php while ($row=mysqli_fetch_array($result)){ ?>
+   <tr>
+  <td><?php echo $row['Fullname'];?></td>
+  <td><?php echo $row['Birthdate'];?></td>
+  <td><?php echo $row['Age'];?></td>
+  <td><?php echo $row['Gender'];?></td>
+  <td><?php echo $row['HomeAddress'];?></td>
+  <td><?php echo $row['Contact'];?></td>
+  <td><?php echo $row['DateofRequest'];?></td>
+  <td><?php echo $row['Purposes'];?></td>
+  <td><?php echo $row['Documents'];?></td>
+  <td><?php echo $row['FrontID'];?></td>
+  <td><?php echo $row['BackID'];?></td>
+  <td><?php echo $row['Fee'];?></td>
+  <td><?php echo $row['Payment'];?></td>
+  <td><?php echo $row['Service'];?></td>
+  <td><?php echo $row['Status'];?></td>
+  <td width='50px'><a class="delete_btn" bgcolor='#3660A5' onclick="return confirm('Are you sure to delete this request?');" href="requestdelete2.php?id=<?php echo $row['id'];?>"><i class="far fa-trash-alt"></i></a></td>
+  </tr>
+  <?php } ?>
+</table>
+
+    <?php include ('adminrequestdenied.php');?>
+    <table class="box" border="none" cellpadding="10" cellspacing="0" align="center">
+	<thead> 
+	 <td colspan="16"style="color:white; background-image: linear-gradient(0deg, rgb(2, 3, 129) 30%, rgb(40, 116, 252) 100%); font-weight: 600; font-size: 17px;"> DENIED REQUEST </td>
+	</thead>
+   <tbody>
+   <tr>
+   <td><label><b>Full Name</b></label></td>
+   <td><label><b>Birthday</b></label></td>
+   <td><label><b>Age</b></label></td>
+   <td><label><b>Gender</b></label></td>
+   <td><label><b>Address</b></label></td>
+   <td><label><b>Contact</b></label></td>
+   <td><label><b>Date of Request</b></label></td>
+   <td><label><b>Purpose</b></label></td>
+   <td><label><b>Document</b></label></td>
+   <td colspan="2"><label><b>Valid IDs</b></label></td>
+   <td><label><b>Fee</b></label></td>
+   <td><label><b>Payment</b></label></td>
+   <td><label><b>Service</b></label></td>
+   <td><label><b>Status</b></label></td>
+   <td> </td>
+   </tr>
+
+  <?php while ($row=mysqli_fetch_array($result)){ ?>
+   <tr>
+  <td><?php echo $row['Fullname'];?></td>
+  <td><?php echo $row['Birthdate'];?></td>
+  <td><?php echo $row['Age'];?></td>
+  <td><?php echo $row['Gender'];?></td>
+  <td><?php echo $row['HomeAddress'];?></td>
+  <td><?php echo $row['Contact'];?></td>
+  <td><?php echo $row['DateofRequest'];?></td>
+  <td><?php echo $row['Purposes'];?></td>
+  <td><?php echo $row['Documents'];?></td>
+  <td><?php echo $row['FrontID'];?></td>
+  <td><?php echo $row['BackID'];?></td>
+  <td><?php echo $row['Fee'];?></td>
+  <td><?php echo $row['Payment'];?></td>
+  <td><?php echo $row['Service'];?></td>
+  <td><?php echo $row['Status'];?></td>
+  <td width='55px'><a class ="delete_btn" onclick="return confirm('Are you sure to delete this request?');" href="requestdelete2.php?id=<?php echo $row['id']; ?>"><i class="far fa-trash-alt"></i></a></td>
+  </tr>
+  <?php } ?>
+</table>
+</div>
+
+
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$('.nav_btn').click(function(){
+			$('.mobile_nav_items').toggleClass('active');
+		});
+	});
+  </script>
+
+</body>
+</html>

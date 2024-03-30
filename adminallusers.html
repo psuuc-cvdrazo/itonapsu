@@ -1,0 +1,135 @@
+<?php include ('adminsession.php'); ?>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> BDORS </title>
+  <link rel="stylesheet" href="adminpage/adminalluser.css">
+  <script src="https://kit.fontawesome.com/b0811c54d0.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"charset="utf-8"></script>
+
+</head>
+<style>
+	.content {
+	width: (100% - 250px);
+	margin-top: 60px;
+	padding: 20px;
+	margin-left: 250px;
+	background-image: linear-gradient(0deg, rgb(140, 140, 232) 30%, rgb(255, 255, 255) 100%);
+	height: 100vh;
+	transition: 0.5s;
+}
+</style>
+<link rel="stylesheet" href="adminpage/adminallusermedia.css">
+
+<body>
+<?php if (isset($_SESSION['msg'])): ?>
+	<div class = "msg">
+		<?php
+			echo $_SESSION['msg'];
+			unset($_SESSION['msg']);
+		?>
+	</div>
+	<?php endif ?>
+	<input type="checkbox" id="check">
+	
+  <!--header area start-->
+  <header>
+  	<label for="check">
+  		<i class="fas fa-bars" id="sidebar_btn"></i>
+  	</label>
+	  <div class="row">
+		<div class="left_area">
+			<img style="height: 50px; width: 50px;" src="img/psuzz.png" alt="">
+		</div>
+		<div class="text_area">
+			<h3>PS<span>U</span></h3>
+		</div>
+	</div>
+  	<div class="right_area">
+
+		  <a href="adminlogout.php" class="logout_btn">  <i class="fas fa-sign-out-alt"></i> Logout</a>
+  	</div>
+  </header>
+  <!--header area end-->
+  
+  
+  <!--mobile navigation start-->
+  <div class="mobile_nav">
+    <div class="nav_bar">
+	    <img src="img/ava.png" class="mobile_profile_image">
+		<i class="fas fa-bars nav_btn"></i>
+    </div>
+	<div class="mobile_nav_items">
+	<a href="adminportal.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+  	<a href="adminallusers.php"><i class="fas fa-user"></i><span>All Users</span></a>
+  	<a href="adminallrequest.php"><i class="fas fa-folder-open"></i><span>All Requests</span></a>
+    <a href="adminsetting.php"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+	</div>
+  </div>
+  <!--mobile navigation end-->
+  
+  
+  <!--sidebar start-->
+    <div class="sidebar">
+  	<div class="profile_info">
+		<img src="img/ava.png" class="profile_image" alt="">
+		<?php echo $login_session = $row['Username'];?>
+  	</div>
+  	<a href="adminportal.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+  	<a href="adminallusers.php"><i class="fas fa-user"></i><span>All Users</span></a>
+  	<a href="adminallrequest.php"><i class="fas fa-folder-open"></i><span>All Requests</span></a>
+    <a href="adminsetting.php"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+	<a href="admintools.php"><i class="fas fa-wrench"></i><span>Tools</span></a>
+    </div>
+  <!--sidebar end-->
+
+  
+  <!--content start-->
+  <div class="content">
+    <div class="welcome">
+		<center>
+			<h2 style="background: linear-gradient(-45deg, #031ba6, #013546); display: inline; -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="cs-title">ALL USER ACCOUNTS</h2>
+		  </center>
+        <!-- <p>ALL USER ACCOUNTS</p> -->
+    </div>
+    <?php include ('adminindex.php');?>
+    <table class="box" border="none" cellpadding="10" cellspacing="0" width="500" align="center">
+<tbody>
+<tr style="color:white; background-image: linear-gradient(0deg, rgb(2, 3, 129) 30%, rgb(40, 116, 252) 100%);">
+   <td><label><b>First Name</b></label></td>
+   <td><label><b>Last Name</b></label></td>
+   <td><label><b>Email</b></label></td>
+   <td><label><b>Username</b></label></td>
+   <td><label><b>Status</b></label></td>
+   <td> </td>
+</tr>
+
+<?php
+  while ($row=mysqli_fetch_array($result)){ ?>
+<tr>
+  <td><?php echo $row['FirstName'];?></td>
+  <td><?php echo $row['LastName'];?></td>
+  <td><?php echo $row['Email'];?></td>
+  <td><?php echo $row['Username'];?></td>
+  <td><?php echo $row['Status'];?></td>
+  <td><a class ="edit_btn" onclick="return confirm('Are you sure to delete this user account?');" href="deleteuseracc.php?id=<?php echo $row['id'];?>"><i class="far fa-trash-alt"></i></a></td>
+</tr>
+  <?php } ?>
+</table>
+</div>
+<!--content end-->
+</body>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$('.nav_btn').click(function(){
+			$('.mobile_nav_items').toggleClass('active');
+		});
+	});
+  </script>
+
+</body>
+</html>

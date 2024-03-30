@@ -1,0 +1,147 @@
+<?php include ('adminserver.php'); 
+
+	// fetch the record to be updated
+	if (isset($_GET['edit'])){
+		$edit_state = true;
+		$rec = mysqli_query($db, "SELECT * FROM admin WHERE Username='$admin_check'");
+		$record = mysqli_fetch_array($rec);
+		$uname = $record['Username'];
+		$pwd = $record['Password'];
+	}
+?>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> BDORS </title>
+  <link rel="stylesheet" href="adminpage/adminsetting.css">
+  <script src="https://kit.fontawesome.com/b0811c54d0.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"charset="utf-8"></script>
+</head>
+<style>
+.content {
+	width: (100% - 250px);
+	margin-top: 60px;
+	padding: 20px;
+	margin-left: 250px;
+	background-image: linear-gradient(0deg, rgb(140, 140, 232) 30%, rgb(255, 255, 255) 100%);
+	background-size: cover;
+	height: 100vh;
+	transition: 0.5s;
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="adminpage/adminmediasetting.css">
+
+<body>
+<?php if (isset($_SESSION['msg'])): ?>
+	<div class = "msg">
+		<?php
+			echo $_SESSION['msg'];
+			unset($_SESSION['msg']);
+		?>
+	</div>
+	<?php endif ?>
+	<input type="checkbox" id="check">
+	
+  <!--header area start-->
+  <header>
+  	<label for="check">
+  		<i class="fas fa-bars" id="sidebar_btn"></i>
+  	</label>
+	  <div class="row">
+		<div class="left_area">
+			<img style="height: 50px; width: 50px;" src="img/psuzz.png" alt="">
+		</div>
+		<div class="text_area">
+			<h3>PS<span>U</span></h3>
+		</div>
+		</div>
+  	<div class="right_area">
+  		<a href="adminlogout.php" class="logout_btn">Logout</a>
+  	</div>
+  </header>
+  <!--header area end-->
+  
+  
+  <!--mobile navigation start-->
+  <div class="mobile_nav">
+    <div class="nav_bar">
+	    <img src="img/ava.png" class="mobile_profile_image">
+		<i class="fas fa-bars nav_btn"></i>
+    </div>
+	<div class="mobile_nav_items">
+	<a href="adminportal.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+  	<a href="adminallusers.php"><i class="fas fa-user"></i><span>All Users</span></a>
+  	<a href="adminallrequest.php"><i class="fas fa-folder-open"></i><span>All Requests</span></a>
+    <a href="adminsetting.php"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+	</div>
+  </div>
+  <!--mobile navigation end-->
+  
+  
+  <!--sidebar start-->
+    <div class="sidebar">
+  	<div class="profile_info">
+		<img src="img/ava.png" class="profile_image" alt="">
+		<?php echo $login_session = $row['Username'];?>
+  	</div>
+  	<a href="adminportal.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+  	<a href="adminallusers.php"><i class="fas fa-user"></i><span>All Users</span></a>
+  	<a href="adminallrequest.php"><i class="fas fa-folder-open"></i><span>All Requests</span></a>
+    <a href="adminsetting.php"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+	<a href="admintools.php"><i class="fas fa-wrench"></i><span>Tools</span></a>
+    </div>
+  <!--sidebar end-->
+
+  
+  <!--content start-->
+  <div class="content">
+  <?php while ($row = mysqli_fetch_array($results)) { ?>
+		<table>
+		<tr style="color:white; background-image: linear-gradient(0deg, rgb(2, 3, 129) 30%, rgb(40, 116, 252) 100%);">
+			<th>Username</th>
+			<th>Password</th>
+			<th></th>
+		</tr>
+		<tr>
+			<td><?php echo $row['Username'];?>	</td>
+			<td><?php echo $row['Password']; ?>	</td>
+			<td><a class ="edit_btn" href="adminsetting.php?edit=<?php echo $row['id']; ?>"><i class="far fa-edit"></i></a></td>
+		</tr>
+		</table>
+	<?php } ?>
+	
+  <form method="post" action="adminserver.php">
+  <input type="hidden" name="id" value="<?php echo $id; ?>">
+		<div class="input-group">
+			<label>Username</label>
+			<input type="text" name="Username" value="<?php echo $uname; ?>" required>
+		</div>
+		<div class="input-group">
+			<label>Password</label>
+			<input type="text"  name="Password" value="<?php echo $pwd; ?>" required>
+		</div>
+		<div class="input-group">
+		<?php if ($edit_state == false): ?>
+			<button class="btn" type="submit" name="update" >Update</button>
+		<?php else: ?>
+			<button class="btn2" type="submit" onclick="return confirm('Are you sure to change your information?');" name="update" >Update</button>
+		<?php endif ?>
+		</div>
+	</form>
+	</div>
+    <!--content end-->
+
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$('.nav_btn').click(function(){
+			$('.mobile_nav_items').toggleClass('active');
+		});
+	});
+  </script>
+</body>
+</html>

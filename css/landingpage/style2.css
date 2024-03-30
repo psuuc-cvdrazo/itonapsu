@@ -115,7 +115,7 @@
         top: 0;
         left: 0;
         z-index: -1;
-        transition: width 0.3s;
+        /* transition: width 0.3s; */
     }
     #services-1188 .cs-button-solid:hover:before {
         width: 100%;
